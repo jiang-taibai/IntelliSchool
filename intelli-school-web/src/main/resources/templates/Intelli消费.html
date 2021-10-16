@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>IntelliSchool-Intelli消费</title>
+    <meta name="description" content="IntelliSchool项目模板页">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" th:href="@{/public/img/IntelliSchool Logo.png}" />
+
+    <!-- 网页基本CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/BasicWebsiteSettings.css}">
+
+    <!-- 导航栏CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/NavigationBar.css}">
+
+    <!-- 主体基本CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/MainFrame.css}">
+
+    <!-- 默认分布CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/DefaultDistributionTemplate.css}">
+
+    <!-- 引入jQuery支持 -->
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <style type="text/css">
+        #AnalysisOfConsumption3DChart {
+            margin-left: 20px;
+            width: 680px;
+            height: 500px;
+            float: left;
+        }
+
+        #AnalysisOfConsumption2DChart {
+            width: 500px;
+            height: 500px;
+            float: left;
+        }
+
+        .analyseTextFontStyle {
+            font-family: "Microsoft YaHei";
+            font-size: 20px;
+            text-align: center;
+            display: table;
+            float: left;
+        }
+
+        #PoorIndexScatterChart {
+            float: left;
+            width: 960px;
+            height: 370px;
+        }
+    </style>
+</head>
+
+<body>
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <div id="bar">
+        <div id="logo">IntelliSchool<img th:src="@{/public/img/IntelliSchool Logo.png}" height="30px" style="margin: 10px; float:left;"></div>
+        <div id="linkBar">
+            <ul>
+                <li><a href="/basicInfo">基本数据</a></li>
+                <li><a href="/teacherManage">教师管理</a></li>
+                <li><a href="/scoreAnalyse">成绩分析</a></li>
+                <li><a href="/consumeInfo">消费信息</a></li>
+                <li><a href="/classInfo">班级信息</a></li>
+                <li><a href="/studentInfo">学生信息</a></li>
+                <li><a href="/intelliAnalyse">Intelli分析</a></li>
+                <li><a href="/intelliScore">Intelli预测</a></li>
+                <li class="linkBarSelected"><a href="javascript:;">Intelli消费</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="main">
+        <div class="generalDistributionBox" style="width: 1200px; height: 670px;">
+            <div class="generalDistributionTitleBox">-- 贫困生群体发现 --</div>
+            <div class="analyseTextFontStyle" style="height: 96px; width: 100%;">
+                <span style="display: table-cell; vertical-align:middle;">
+                    根据学生的消费次数、消费总额、平均消费三个数据的多维度多视角展示，利于校领导发现潜在的贫困生群体</span>
+            </div>
+            <div style="text-align: center;"><img th:src="@{/public/img/下箭头.png}" height="40px"></div>
+            <div id="AnalysisOfConsumption3DChart"></div>
+            <div id="AnalysisOfConsumption2DChart"></div>
+        </div>
+
+        <div class="generalDistributionBox" style="width: 1200px; height: 400px;">
+            <div class="generalDistributionTitleBox">-- 贫困生与非贫困生新发现 --</div>
+            <div class="analyseTextFontStyle" style="height: 370px; width: 200px; padding: 20px;">
+                <p style="display: table-cell; vertical-align:middle; text-indent: 2em;">
+                    罗列出学生的贫困指数，比较现已知的贫困生与非贫困生，帮助校领导发现非正常贫困生与潜在贫困生
+                </p>
+            </div>
+            <div style="float: left; position: relative; height: 370px; width: 40px;">
+                <img th:src="@{/public/img/右箭头.png}" width="40px" height="40px"
+                    style="position: absolute; top: 50%; margin-top: -20px;">
+            </div>
+            <div id="PoorIndexScatterChart"></div>
+        </div>
+    </div>
+
+</body>
+<!-- 访问API数据 -->
+<script th:src="@{/public/js/IntelliSchoolAPI-JsonData.js}"></script>
+<!-- 引入echarts支持 -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+<!-- 本页JS文件 -->
+<script th:src="@{/intelli consume/js/ConsumeChart.js}"></script>
+<script th:src="@{/public/js/CustomLoading.js}"></script>
+<script>
+    $(document).ready(function () {
+        updateAnalysisOfConsumptionChart()
+    })
+</script>
+
+</html>

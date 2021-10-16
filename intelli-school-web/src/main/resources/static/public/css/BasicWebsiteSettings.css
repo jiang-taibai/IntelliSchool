@@ -1,0 +1,43 @@
+/* 基本网页设置，主要将所有外边距内边距设为0，链接a便签颜色设置为黑色、样式为无 */
+* {
+	margin: 0 auto;
+	padding: 0;
+    box-sizing:border-box;
+}
+
+body {
+	margin: 0 auto!important;
+	padding: 0!important;
+    /* 主体颜色为此颜色，参照阿里配色 */
+	background-color: rgb(245, 245, 246)!important;
+}
+
+/*包含以下五种的链接*/
+a {
+	text-decoration: none!important;
+}
+
+/*正常的未被访问过的链接*/
+a:link {
+	text-decoration: none!important;
+}
+
+/*已经访问过的链接*/
+a:visited {
+	text-decoration: none!important;
+}
+
+/*鼠标划过(停留)的链接*/
+a:hover {
+	text-decoration: none!important;
+}
+
+/* 正在点击的链接，鼠标在元素上按下还没有松开*/
+a:active {
+	text-decoration: none!important;
+}
+
+/* 获得焦点的时候 鼠标松开时显示的颜色*/
+a:focus {
+	text-decoration: none!important;
+}

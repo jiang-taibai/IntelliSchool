@@ -1,0 +1,144 @@
+/* Szx's css file */
+.pt {
+    margin-top: 2%;
+    height: 90%;
+    width: 100%;
+}
+
+#m3 {
+    margin-top: 2%;
+    width: 100%;
+    height: 90%;
+    overflow: auto;
+}
+
+.m3-box {
+    width: 300px;
+    height: 22px;
+    margin: 3px 0;
+    float: left;
+}
+
+.m3-box1 {
+    width: 90px;
+    height: 100%;
+    float: left;
+    text-align: center;
+}
+
+.m3-box2 {
+    border-radius: 10px;
+    background-color: rgb(233, 236, 239);
+    width: 190px;
+    text-align: center;
+    line-height: -100px;
+    height: 100%;
+    float: left;
+    font-size: 14px;
+    color: #fff;
+}
+
+.m3-text {
+    font-size: 14px;
+    height: 100%;
+    margin-top: 13px;
+}
+
+.thett {
+    border-radius: 10px 0px 0 10px;
+    float: left;
+}
+
+#m2 {
+    width: 100%;
+    height: 90%;
+    margin-top: 2%;
+    position: relative;
+}
+
+#m2-1 {
+    float: left;
+    width: 180px;
+    height: 100%;
+}
+
+#m2-2 {
+    float: right;
+    width: 290px;
+    height: 100%;
+}
+
+#m2-2-1 {
+    width: 100%;
+    height: 50%;
+    ;
+}
+
+#m2-2-2 {
+    width: 100%;
+    height: 50%;
+}
+
+#m2-1-1 {
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+
+#m2-1-2 {
+    width: 50%;
+    height: 100%;
+    float: left
+}
+
+.ft {
+
+    width: 50px;
+    position: absolute;
+    z-index: 9;
+    color: #FFFFFF;
+}
+
+#f1 {
+    left: 55px;
+    top: 105px;
+}
+
+#f2 {
+    left: 55px;
+    top: 240px;
+}
+
+#f3 {
+    left: 140px;
+    top: 80px;
+}
+
+#f4 {
+    left: 140px;
+    top: 198px;
+}
+
+#f5 {
+    left: 140px;
+    top: 265px;
+}
+
+
+/* Lj's css file */
+#MapBox {
+    height: 520px;
+    width: 100%;
+}
+
+#ChinaMap {
+    height: 100%;
+    width: 500px;
+    float: left;
+}
+
+#JiangXiMap {
+    height: 100%;
+    width: 300px;
+    float: left;
+}

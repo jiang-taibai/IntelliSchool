@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>IntelliSchool-教师管理</title>
+    <meta name="description" content="IntelliSchool项目">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" th:href="@{/public/img/IntelliSchool Logo.png}" />
+
+    <!-- 网页基本CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/BasicWebsiteSettings.css}">
+
+    <!-- 导航栏CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/NavigationBar.css}">
+
+    <!-- 主体基本CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/MainFrame.css}">
+
+    <!-- 默认分布CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/DefaultDistributionTemplate.css}">
+
+    <!-- 引入jQuery支持 -->
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style type="text/css">
+        .pt {
+            margin-top: 2%;
+            height: 90%;
+            width: 100%;
+        }
+
+        #k {
+            height: 400px;
+            width: 100%;
+            left: 70px;
+            position: relative;
+        }
+
+        .kx {
+            top: 10px;
+            height: 370px;
+            width: 100%;
+            position: absolute;
+        }
+
+        #close {
+            width: 100%;
+            height: 18px;
+            position: absolute;
+            z-index: 99;
+            bottom: 32px;
+        }
+
+        #c {
+            width: 60%;
+            position: relative;
+            left: -90px;
+            height: 100%;
+        }
+
+        .cx {
+            font-size: 14px;
+            text-align: center;
+            border-radius: 8px;
+            width: 6.6%;
+            height: 100%;
+            margin: 0 0.5%;
+            float: left;
+            background-color: rgb(114, 163, 117);
+        }
+    </style>
+</head>
+
+<body>
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <div id="bar">
+        <div id="logo">IntelliSchool<img th:src="@{/public/img/IntelliSchool Logo.png}" height="30px" style="margin: 10px; float:left;"></div>
+        <div id="linkBar">
+            <ul>
+                <li><a href="/basicInfo">基本数据</a></li>
+                <li class="linkBarSelected"><a href="javascript:;">教师管理</a></li>
+                <li><a href="/scoreAnalyse">成绩分析</a></li>
+                <li><a href="/consumeInfo">消费信息</a></li>
+                <li><a href="/classInfo">班级信息</a></li>
+                <li><a href="/studentInfo">学生信息</a></li>
+                <li><a href="/intelliAnalyse">Intelli分析</a></li>
+                <li><a href="/intelliScore">Intelli预测</a></li>
+                <li><a href="/intelliConsume">Intelli消费</a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="main">
+        <div class="generalDistributionBox mg-right-20" style="width: 100%; height: 400px;">
+            <div class="generalDistributionTitleBox">-- 师资分配情况 --</div>
+            <div id="main-dot" class="pt"></div>
+        </div>
+        <div class="generalDistributionBox mg-right-20" style="width: 100%; height: 400px;">
+            <div class="generalDistributionTitleBox">-- 教师班级对应关系 --</div>
+            <div id="k">
+                <div id="k1" class="kx"></div>
+                <div id="k2" class="kx"></div>
+                <div id="k3" class="kx"></div>
+                <div id="k4" class="kx"></div>
+                <div id="k5" class="kx"></div>
+                <div id="k6" class="kx"></div>
+                <div id="k7" class="kx"></div>
+                <div id="k8" class="kx"></div>
+                <div id="k9" class="kx"></div>
+                <div id="k10" class="kx"></div>
+                <div id="k11" class="kx"></div>
+                <div id="k12" class="kx"></div>
+                <div id="k13" class="kx"></div>
+                <div id="close">
+                    <div id="c">
+                        <div id="c1" class="cx">技术</div>
+                        <div id="c2" class="cx">生物</div>
+                        <div id="c3" class="cx">历史</div>
+                        <div id="c4" class="cx">语文</div>
+                        <div id="c5" class="cx">英语</div>
+                        <div id="c6" class="cx">美术</div>
+                        <div id="c7" class="cx">音乐</div>
+                        <div id="c8" class="cx">政治</div>
+                        <div id="c9" class="cx">物理</div>
+                        <div id="c10" class="cx">体育</div>
+                        <div id="c11" class="cx">数学</div>
+                        <div id="c12" class="cx">化学</div>
+                        <div id="c13" class="cx">地理</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+<script type="text/javascript" th:src="@{/teacher manage/js/teacherManageJs.js}"></script>
+
+</html>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>IntelliSchool-学生信息</title>
+    <meta name="description" content="IntelliSchool项目">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" th:href="@{/public/img/IntelliSchool Logo.png}" />
+
+    <!-- 网页基本CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/BasicWebsiteSettings.css}">
+
+    <!-- 导航栏CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/NavigationBar.css}">
+
+    <!-- 主体基本CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/MainFrame.css}">
+
+    <!-- 默认分布CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/DefaultDistributionTemplate.css}">
+
+    <!-- 引入jQuery支持 -->
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <!-- Bootstrap框架核心CSS样式 -->
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://cdn.bootcss.com/bootstrap-select/1.12.4/css/bootstrap-select.min.css" rel="stylesheet">
+
+    <style type="text/css">
+        #selectBar {
+            float: left;
+            margin-left: 20px;
+            width: 150px;
+            height: 120px;
+            padding: 10px;
+            padding-top: 20px;
+            /* box-shadow: 0px 0px 5px 0px grey; */
+            transition: all 0.2s ease-in-out;
+            border-radius: 0.5em;
+        }
+
+        #studentInfoBox {
+            width: 1010px;
+            float: left;
+            height: 120px;
+            padding-left: 20px;
+        }
+
+        /* 学生信息标签 */
+        .studentInfoCell {
+            cursor: pointer;
+            float: left;
+            padding-left: 1em;
+            padding-right: 1em;
+            height: 40px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border-radius: 1em;
+            line-height: 40px;
+            font-size: 16px;
+            box-shadow: 0px 0px 2px 0px grey;
+            margin-right: 10px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .studentInfoCell:hover {
+            box-shadow: 0px 0px 4px 0px grey;
+        }
+
+        .toolBar {
+            padding-top: 8px;
+            padding-bottom: 8px;
+            padding-left: 20px;
+            height: 50px;
+        }
+
+        .deactiveRankChart {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a>
+    to improve your experience.</p>
+<![endif]-->
+<div id="bar">
+    <div id="logo">IntelliSchool<img th:src="@{/public/img/IntelliSchool Logo.png}" height="30px" style="margin: 10px; float:left;"></div>
+    <div id="linkBar">
+        <ul>
+            <li><a href="/basicInfo">基本数据</a></li>
+            <li><a href="/teacherManage">教师管理</a></li>
+            <li><a href="/scoreAnalyse">成绩分析</a></li>
+            <li><a href="/consumeInfo">消费信息</a></li>
+            <li><a href="/classInfo">班级信息</a></li>
+            <li class="linkBarSelected"><a href="javascript:;">学生信息</a></li>
+            <li><a href="/intelliAnalyse">Intelli分析</a></li>
+            <li><a href="/intelliScore">Intelli预测</a></li>
+            <li><a href="/intelliConsume">Intelli消费</a></li>
+        </ul>
+    </div>
+</div>
+
+<div id="main">
+    <div class="generalDistributionBox" style="width: 100%; height: 150px;">
+        <div class="generalDistributionTitleBox">-- 学生信息 --</div>
+        <div id="selectBar" class="mg-right-20">
+            <div class="form-group">
+                <select class="selectpicker show-tick form-control" name="studentIdSelect" data-width="150px"
+                        id="studentIdSelect"
+                        data-live-search="true">
+                    <option value="14785">[14785] 刘启鑫</option>
+                    <!-- 此处可以异步获取所有学生信息，仅做举例 -->
+                </select>
+            </div>
+            <button class="btn btn-default" style="width: 150px;" onclick="changeStudent()">确认</button>
+        </div>
+        <!-- <div class="generalDistributionRemark">此处放置学生的基本信息<br />
+            学生信息包括 学号、姓名、性别、民族、出生日期、家庭住址、家庭类型、政治面貌</div> -->
+        <div id="studentInfoBox">
+            <div class="studentInfoCell"><strong>学号: </strong><span data-title="stuId"></span></div>
+            <div class="studentInfoCell"><strong>姓名: </strong><span data-title="stuName"></span></div>
+            <div class="studentInfoCell"><strong>性别: </strong><span data-title="stuSex"></span></div>
+            <div class="studentInfoCell"><strong>民族: </strong><span data-title="stuNation"></span></div>
+            <div class="studentInfoCell">
+                <strong>出生日期: </strong><span data-title="stuBorndate"></span>
+            </div>
+            <div class="studentInfoCell">
+                <strong>家庭住址: </strong><span data-title="stuNativeplace"></span>
+            </div>
+            <div class="studentInfoCell">
+                <strong>家庭类型: </strong><span data-title="stuResidencetype"></span>
+            </div>
+            <div class="studentInfoCell">
+                <strong>政治面貌: </strong><span data-title="stuPolicy"></span>
+            </div>
+        </div>
+    </div>
+    <div class="generalDistributionBox mg-right-20" style="width: 500px; height: 500px;">
+        <div class="generalDistributionTitleBox">-- 学科排名雷达 --</div>
+        <div class="toolBar">
+            <div class="form-group">
+                <select class="selectpicker show-tick form-control mg-right-20" name="examIdSelect" id="examIdSelect"
+                        data-width="250px" data-live-search="true">
+                    <!-- 此处应当在获取学生信息后更改考试列表，此处仅做举例 -->
+                </select>
+                <button class="btn btn-default" style="width: 100px;"
+                        onclick="updateSubjectRankRadarMap()">确认
+                </button>
+            </div>
+        </div>
+        <div id="radarMap" style="width: 500px; height: 420px;"></div>
+    </div>
+    <div class="generalDistributionBox" style="width: 680px; height: 500px;">
+        <div class="generalDistributionTitleBox">-- 总分趋势 --</div>
+        <div id="totalScoreTendencyChart"
+             style="width: 680px; height: 230px; margin-bottom: 10px; padding-top: 10px;"></div>
+        <div id="totalRankTendencyChart" style="width: 680px; height: 230px;"></div>
+    </div>
+
+
+    <div class="generalDistributionBox mg-right-20 subjectTendencyBox" style="width: 386.66px; height: 200px;">
+        <div class="generalDistributionTitleBox">-- 语文排名趋势 --</div>
+        <div id="rankTendencySubject_1" style="width: 386.66px; height: 170px;"></div>
+    </div>
+    <div class="generalDistributionBox mg-right-20 subjectTendencyBox" style="width: 386.66px; height: 200px;">
+        <div class="generalDistributionTitleBox">-- 数学排名趋势 --</div>
+        <div id="rankTendencySubject_2" style="width: 386.66px; height: 170px;"></div>
+    </div>
+    <div class="generalDistributionBox subjectTendencyBox" style="width: 386.66px; height: 200px;">
+        <div class="generalDistributionTitleBox">-- 英语排名趋势 --</div>
+        <div id="rankTendencySubject_3" style="width: 386.66px; height: 170px;"></div>
+    </div>
+    <div class="generalDistributionBox mg-right-20 subjectTendencyBox" style="width: 386.66px; height: 200px;">
+        <div class="generalDistributionTitleBox">-- 物理排名趋势 --</div>
+        <div id="rankTendencySubject_4" style="width: 386.66px; height: 170px;"></div>
+    </div>
+    <div class="generalDistributionBox mg-right-20 subjectTendencyBox" style="width: 386.66px; height: 200px;">
+        <div class="generalDistributionTitleBox">-- 化学排名趋势 --</div>
+        <div id="rankTendencySubject_5" style="width: 386.66px; height: 170px;"></div>
+    </div>
+    <div class="generalDistributionBox subjectTendencyBox" style="width: 386.66px; height: 200px;">
+        <div class="generalDistributionTitleBox">-- 生物排名趋势 --</div>
+        <div id="rankTendencySubject_6" style="width: 386.66px; height: 170px;"></div>
+    </div>
+    <div class="generalDistributionBox mg-right-20 subjectTendencyBox" style="width: 386.66px; height: 200px;">
+        <div class="generalDistributionTitleBox">-- 政治排名趋势 --</div>
+        <div id="rankTendencySubject_7" style="width: 386.66px; height: 170px;"></div>
+    </div>
+    <div class="generalDistributionBox mg-right-20 subjectTendencyBox" style="width: 386.66px; height: 200px;">
+        <div class="generalDistributionTitleBox">-- 历史排名趋势 --</div>
+        <div id="rankTendencySubject_8" style="width: 386.66px; height: 170px;"></div>
+    </div>
+    <div class="generalDistributionBox subjectTendencyBox" style="width: 386.66px; height: 200px;">
+        <div class="generalDistributionTitleBox">-- 地理排名趋势 --</div>
+        <div id="rankTendencySubject_9" style="width: 386.66px; height: 170px;"></div>
+    </div>
+
+
+    <div class="generalDistributionBox" style="width: 100%; height: 300px;">
+        <div class="generalDistributionTitleBox">-- 学生历史消费数据 --</div>
+        <div id="dailyConsumeLineChart" style="width: 100%; height: 270px;"></div>
+    </div>
+</div>
+
+</body>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-select/1.12.4/js/i18n/defaults-zh_CN.min.js"></script>
+
+<!-- 引入以支持echarts画地图分布图 -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+<!-- 访问API数据 -->
+<script th:src="@{/public/js/IntelliSchoolAPI-JsonData.js}"></script>
+<!-- 获得学生信息 -->
+<script type="text/javascript" th:inline="none">
+    var studentInfoSpans = []
+
+    function queryStudentInfo(studentId) {
+        // console.log(studentInfoSpans.length)
+        if (studentInfoSpans.length != 0) {
+            for (i = 0; i < studentInfoSpans.length; ++i) {
+                studentInfoSpans[i].innerText = 'Loading...'
+            }
+        }
+        getIntelliSchoolApiJson('/studentData/getStudentInfo', {
+            studentId: studentId
+        }, queryStudentInfo_callback)
+    }
+
+    function queryStudentInfo_callback(data) {
+        $.each(data, function (key, value) {
+            // console.log("key=" + key + ", value=" + value);
+            var spanDom = $('span[data-title=' + key + ']')[0];
+            if (spanDom != null) {
+                if (key == 'stuBorndate') spanDom.innerHTML = changeTime(value)
+                else spanDom.innerText = value;
+                if (studentInfoSpans.length <= 8) {
+                    studentInfoSpans[studentInfoSpans.length] = spanDom;
+                }
+            }
+        })
+    }
+
+    function getName() {
+        return $('span[data-title=stuName]')[0].innerText;
+    }
+
+    function changeTime(time) {
+        if (time) {
+            var oDate = new Date(time * 1),
+                oYear = oDate.getFullYear(),
+                oMonth = oDate.getMonth() + 1,
+                oDay = oDate.getDate(),
+                oTime = oYear + '年' + oMonth + '月' + oDay + '日';//拼接时间
+            return oTime;
+        } else {
+            return "";
+        }
+    }
+
+</script>
+
+<script type="text/javascript" th:src="@{/student info/js/SubjectRankRadarMap.js}"></script>
+<script type="text/javascript" th:src="@{/student info/js/TotalScore&RankTendency.js}"></script>
+<script type="text/javascript" th:src="@{/student info/js/DailyConsumeLineChart.js}"></script>
+<script th:src="@{/public/js/CustomLoading.js}"></script>
+<script th:src="@{/student info/js/ExamSelectBar.js}"></script>
+<script type="text/javascript">
+    // 此处设置网页初次打开的初始化信息
+    $(document).ready(function () {
+        getIntelliSchoolApiJson("/studentData/getAllStudentIdNames", null, function (data) {
+            $.each(data, function (index, value) {
+                if (index != 0) {
+                    $("#studentIdSelect")
+                        .append("<option value='" + value['studentId'] + "'>[" +
+                            value['studentId'] + "] " + value['studentName'] + "</option>")
+                }
+            })
+            $("#studentIdSelect").selectpicker("refresh");
+        })
+        changeStudent();
+    })
+
+    // 当学生信息切换时，应当将整个页面的信息都相对于的切换
+    function changeStudent() {
+        updateExamSelectBar();
+    }
+
+    function updateChart(studentId, examId) {
+        queryStudentInfo(studentId);
+        updateSubjectRankRadarMap(studentId, examId);
+        updateTotalScoreTendency(studentId);
+        updateTotalRankTendency(studentId);
+        updateAllSubjectRankTendency(studentId);
+        updateDailyConsumeLineChart(studentId);
+    }
+</script>
+
+</html>
