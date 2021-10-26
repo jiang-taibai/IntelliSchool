@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dajiangsai.mapper.ExamMapper">
+  <resultMap id="BaseResultMap" type="com.dajiangsai.pojo.Exam">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <constructor>
+      <idArg column="exam_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <idArg column="exam_subject" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="exam_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="exam_type" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="exam_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+
+<select id="queryClassAllExam" resultMap="BaseResultMap">
+  -- 查询某班所拥有的所有考试
+  SELECT
+    exam.*
+  FROM
+    exam, (SELECT DISTINCT class_id, class_name, grade_name FROM teacher) AS classInfo
+  WHERE
+    classInfo.class_id = #{classId}
+    AND
+    exam.exam_name LIKE concat(concat('%',classInfo.grade_name),'%');
+</select>
+</mapper>

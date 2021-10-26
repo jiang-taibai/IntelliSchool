@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>IntelliSchool-成绩分析</title>
+    <meta name="description" content="IntelliSchool项目">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" th:href="@{/public/img/IntelliSchool Logo.png}" />
+
+    <!-- 网页基本CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/BasicWebsiteSettings.css}">
+
+    <!-- 导航栏CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/NavigationBar.css}">
+
+    <!-- 主体基本CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/MainFrame.css}">
+
+    <!-- 默认分布CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/DefaultDistributionTemplate.css}">
+    <style type="text/css">
+        .generalDistributionBox {
+            position: relative;
+        }
+
+        .m {
+            position: absolute;
+            top: 14%;
+            height: 90%;
+            width: 100%;
+        }
+
+        .form-control {
+            z-index: 9;
+            position: absolute;
+            text-align: center;
+            text-align-last: center;
+            right: 10px;
+            width: 70px;
+            height: 25px;
+            border-radius: 0.5em;
+        }
+
+        .form-controlx {
+            z-index: 9;
+            position: absolute;
+            text-align: center;
+            text-align-last: center;
+            right: 90px;
+            width: 130px;
+            height: 25px;
+            border-radius: 0.5em;
+        }
+
+        #t4 {
+            width: 130px;
+        }
+    </style>
+</head>
+
+<body>
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a>
+    to improve your experience.</p>
+<![endif]-->
+<div id="bar">
+    <div id="logo">IntelliSchool<img th:src="@{/public/img/IntelliSchool Logo.png}" height="30px" style="margin: 10px; float:left;"></div>
+    <div id="linkBar">
+        <ul>
+            <li><a href="/basicInfo">基本数据</a></li>
+            <li><a href="/teacherManage">教师管理</a></li>
+            <li class="linkBarSelected"><a href="javascript:;">成绩分析</a></li>
+            <li><a href="/consumeInfo">消费信息</a></li>
+            <li><a href="/classInfo">班级信息</a></li>
+            <li><a href="/studentInfo">学生信息</a></li>
+            <li><a href="/intelliAnalyse">Intelli分析</a></li>
+            <li><a href="/intelliScore">Intelli预测</a></li>
+            <li><a href="/intelliConsume">Intelli消费</a></li>
+        </ul>
+    </div>
+</div>
+
+<div id="main">
+    <div class="generalDistributionBox mg-right-20" style="width: 590px; height: 300px;">
+        <div class="generalDistributionTitleBox">-- 高一班级排名对比 --</div>
+        <div class="form-group">
+            <select class="form-controlx" id="s1">
+                <option value="10000">高一第一次月考</option>
+                <option value="10003">高一第二次月考</option>
+                <option value="10006">高一第三次月考</option>
+                <option value="10009">高一第四次月考</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <select class="form-control" id="t1">
+                <option value="1">语文</option>
+                <option value="2">数学</option>
+                <option value="3">英语</option>
+                <option value="4">物理</option>
+                <option value="5">化学</option>
+                <option value="6">生物</option>
+                <option value="7">政治</option>
+                <option value="8">历史</option>
+                <option value="9">地理</option>
+            </select>
+        </div>
+        <div id="m1" class="m"></div>
+
+    </div>
+    <div class="generalDistributionBox" style="width: 590px; height: 300px;">
+        <div class="generalDistributionTitleBox">-- 高二班级排名对比 --</div>
+        <div class="form-group">
+            <select class="form-control" id="t2">
+                <option value="1">语文</option>
+                <option value="2">数学</option>
+                <option value="3">英语</option>
+                <option value="4">物理</option>
+                <option value="5">化学</option>
+                <option value="6">生物</option>
+                <option value="7">政治</option>
+                <option value="8">历史</option>
+                <option value="9">地理</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <select class="form-controlx" id="s2">
+                <option value="10001">高二第一次月考</option>
+                <option value="10004">高二第二次月考</option>
+                <option value="10007">高二第三次月考</option>
+                <option value="10010">高二第四次月考</option>
+            </select>
+        </div>
+
+        <div id="m2" class="m"></div>
+    </div>
+    <div class="generalDistributionBox mg-right-20" style="width: 590px; height: 300px;">
+        <div class="generalDistributionTitleBox">-- 高三班级排名对比 --</div>
+        <div class="form-group">
+            <select class="form-control" id="t3">
+                <option value="1">语文</option>
+                <option value="2">数学</option>
+                <option value="3">英语</option>
+                <option value="4">物理</option>
+                <option value="5">化学</option>
+                <option value="6">生物</option>
+                <option value="7">政治</option>
+                <option value="8">历史</option>
+                <option value="9">地理</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <select class="form-controlx" id="s3">
+                <option value="10002">高三第一次月考</option>
+                <option value="10005">高三第二次月考</option>
+                <option value="10008">高三第三次月考</option>
+                <option value="10011">高三第四次月考</option>
+            </select>
+        </div>
+        <div id="m3" class="m"></div>
+    </div>
+    <div class="generalDistributionBox" style="width: 590px; height: 300px;">
+        <div class="generalDistributionTitleBox">-- 考试成绩段人数分布 --</div>
+        <div class="form-group">
+            <select class="form-control" id="t4">
+                <option value="10000">高一第一次月考</option>
+                <option value="10001">高二第一次月考</option>
+                <option value="10002">高三第一次月考</option>
+                <option value="10003">高一第二次月考</option>
+                <option value="10004">高二第二次月考</option>
+                <option value="10005">高三第二次月考</option>
+                <option value="10006">高一第三次月考</option>
+                <option value="10007">高二第三次月考</option>
+                <option value="10008">高三第三次月考</option>
+                <option value="10009">高一第四次月考</option>
+                <option value="10010">高二第四次月考</option>
+                <option value="10011">高三第四次月考</option>
+            </select>
+        </div>
+        <div id="m4" class="m"></div>
+    </div>
+</div>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+<script type="text/javascript"  th:inline="none">
+    function showLoading(chartDom) {
+        var myChart = echarts.init(chartDom)
+        myChart.showLoading({
+            text: '数据正在努力加载...',
+            textStyle: {
+                fontSize: 30,
+                color: '#444'
+            },
+            effectOption: {
+                backgroundColor: 'rgba(0, 0, 0, 0)'
+            },
+        })
+    }
+
+    function hiddenLoading(chartDom) {
+        var myChart = echarts.init(chartDom)
+        myChart.hideLoading()
+    }
+
+    function getjsno(x, y, id, collBack) {
+        //x是科目，语数英-1-9
+        //y是考试10000-10003
+        showLoading(document.getElementById(id))
+        url = 'http://www.intellischool.top:8088';
+        var e = "/scoreAnalyse/querySubjectRank?examId=" + y;
+        var j = "&subjectId=" + x;
+        url = url + e + j;
+        var datas;
+        //console.log(url);
+        $.getJSON(url, function (result) {
+            collBack(result, x, y, id);
+        });
+        // return data;
+    }
+
+    //考试成绩段人数分布数据获取
+    function getjsnox(y, title, collBack) {
+        showLoading(document.getElementById('m4'))
+        //y是考试10000-10003
+        url = 'http://www.intellischool.top:8088';
+        var e = "/scoreAnalyse/querySumSubjectRank?examId=" + y;
+        url = url + e;
+        //console.log(url);
+        $.getJSON(url, function (result) {
+            collBack(result, y, title);
+        });
+    }
+
+    //整理数据函数
+    //data是数据,g是存放数据的数组-0是班级名字，1是班级排名，2是学校排名，3是总分
+    function getyk(data, x, y, id) {
+        var g = [];
+        var g1 = [],
+            g2 = [],
+            g3 = [];
+        var className = [];
+        var classRank = [];
+        var schoolRank = [];
+        var score = [];
+        for (i in data) {
+            //每个班级
+            className.push(i); //存班级名
+            var t1 = data[i];
+            var te = [];
+            for (j in t1) {
+                //单个班级内状况
+                var t2 = t1[j];
+                for (z in t2) {
+                    //单个人
+                    te.push(t2[z]);
+                }
+                classRank.push(te[0]);
+                schoolRank.push(te[1]);
+                score.push(te[2]);
+                te = [];
+            }
+            g1.push(classRank);
+            g2.push(schoolRank);
+            g3.push(score);
+            classRank = [];
+            schoolRank = [];
+            score = [];
+        }
+        var temp, i, len, j;
+        len = className.length;
+        for (j = 0; j < len - 1; j++) {
+            for (i = 0; i < len - 1 - j; i++)
+                if (className[i] > className[i + 1]) {
+                    temp = className[i];
+                    className[i] = className[i + 1];
+                    className[i + 1] = temp;
+                    temp = g1[i];
+                    g1[i] = g1[i + 1];
+                    g1[i + 1] = temp;
+                    temp = g2[i];
+                    g2[i] = g2[i + 1];
+                    g2[i + 1] = temp;
+                    temp = g3[i];
+                    g3[i] = g3[i + 1];
+                    g3[i + 1] = temp;
+                }
+        }
+        g.push(className);
+        g.push(g1);
+        g.push(g2);
+        g.push(g3);
+        titlex = ['语文', '数学', '英语', '物理', '化学', '生物', '政治', '历史', '地理'];
+        titley = ['第一次月考', '第二次月考', '第三次月考', '第四次月考'];
+        y = y - 10000;
+        x = x - 1;
+        var chartDom_here = document.getElementById(id);
+        hiddenLoading(chartDom_here);
+        if (id == 'm1')
+            setMapS1(g, titlex[x], id);
+        else if (id == 'm2')
+            setMapS2(g, titlex[x], id);
+        else if (id == 'm3')
+            setMapS3(g, titlex[x], id);
+        else console.log('?');
+    }
+
+    //放置总分图形
+    function setMapAllScore(cname, score, id, title) {
+        var myChart = echarts.init(document.getElementById(id));
+        //图配置
+        var option1 = {
+            color: ['#7189aa', '#df6b66', '#e79d88', '#8cc1aa', '#749aa0', '#72a375', '#efdd7d', '#71B9BC', '#7189aa', '#90CA8F', '#F59F48'],
+            //标题
+            title: {
+                //x:'center',
+                x: 260,
+                y: 0,
+                //subx:30,
+                //itemGap: 2,
+                text: title,
+                //subtext: "年级排名",
+                textStyle: {
+                    //left:'3%',
+                    fontSize: 18,
+                    fontWeight: 'bolder',
+                    color: '#333' // 主标题文字颜色
+                },
+            },
+            //提示框
+            tooltip: {
+                show: true,
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow',
+                    //type: 'cross',
+                    label: {
+                        backgroundColor: '#6a7985'
+                    }
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                top: '12%',
+                bottom: '18%',
+                containLabel: true
+            },
+            legend: { //图例
+                right: 0,
+                bottom: 20,
+                type: 'scroll',
+                data: ['≥800分', '700-800分', '600-700分', '500-600分', '400-500分', '300-400分', , '200-300分', '100-200分', '≤100分']
+            },
+
+            xAxis: {
+                data: cname
+            },
+            yAxis: {},
+
+            series: [{
+                name: '≥800分',
+                type: 'bar',
+                stack: '总量',
+                data: score[8]
+            },
+
+                {
+                    name: '700-800分',
+                    type: 'bar',
+                    stack: '总量',
+                    data: score[7]
+                },
+                {
+                    name: '600-700分',
+                    type: 'bar',
+                    stack: '总量',
+                    data: score[6]
+                },
+                {
+                    name: '500-600分',
+                    type: 'bar',
+                    stack: '总量',
+                    data: score[5]
+                },
+                {
+                    name: '400-500分',
+                    type: 'bar',
+                    stack: '总量',
+                    data: score[4]
+                },
+                {
+                    name: '300-400分',
+                    type: 'bar',
+                    stack: '总量',
+                    data: score[3]
+                },
+                {
+                    name: '200-300分',
+                    type: 'bar',
+                    stack: '总量',
+                    data: score[2]
+                },
+                {
+                    name: '100-200分',
+                    type: 'bar',
+                    stack: '总量',
+                    data: score[1]
+                },
+                {
+                    name: '≤100分',
+                    stack: '总量',
+                    type: 'bar',
+                    data: score[0]
+                },
+
+            ]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option1);
+    }
+
+    //处理总分数据
+    function getAllScore(data, y, title) {
+        var cname = [];
+        var ss = []
+        var score = [];
+        var s = []; //记录分数区间人数
+        for (var x = 0; x < 9; x++) {
+            s[x] = 0;
+        }
+        for (i in data) {
+            cname.push(i);
+
+            var t1 = data[i];
+            for (j in t1) {
+                var t2 = t1[j];
+                for (z in t2) {
+                    if (z == 'score') {
+                        if (t2[z] >= 800) s[8]++;
+                        else if (t2[z] >= 700) s[7]++;
+                        else if (t2[z] >= 600) s[6]++;
+                        else if (t2[z] >= 500) s[5]++;
+                        else if (t2[z] >= 400) s[4]++;
+                        else if (t2[z] >= 300) s[3]++;
+                        else if (t2[z] >= 200) s[2]++;
+                        else if (t2[z] >= 100) s[1]++;
+                        else s[0]++;
+                    }
+                }
+            }
+            score.push(s);
+            s = [];
+            for (var x = 0; x < 9; x++) {
+                s[x] = 0;
+            }
+        }
+        var temp, i, len, j;
+        len = cname.length;
+        for (j = 0; j < len - 1; j++) {
+            for (i = 0; i < len - 1 - j; i++)
+                if (cname[i] > cname[i + 1]) {
+                    temp = cname[i];
+                    cname[i] = cname[i + 1];
+                    cname[i + 1] = temp;
+                    temp = score[i];
+                    score[i] = score[i + 1];
+                    score[i + 1] = temp;
+                }
+        }
+        //var ss = [];
+        for (var x = 0; x < cname.length; x++) {
+            ss[x] = [];
+        }
+
+        s = [];
+        for (var i = 0; i < score.length; i++) {
+            for (var j = 0; j < score[i].length; j++) {
+                ss[j].push(score[i][j]);
+            }
+        }
+        var chartDom_here = document.getElementById('m4')
+        hiddenLoading(chartDom_here)
+        setMapAllScore(cname, ss, 'm4', title);
+
+    }
+
+    //高一图形
+    function setMapS1(data, title, id) {
+        var datax = [];
+        var datay = [];
+        for (var i = 1; i < 50; i++) {
+            datax.push(i);
+
+        }
+        for (var i = 1; i < 170; i++) {
+            datay.push(i);
+
+        }
+        //初始化
+        var myChart = echarts.init(document.getElementById(id));
+        //图配置
+        var option1 = {
+            color: ['#7189aa', '#df6b66', '#e79d88', '#8cc1aa', '#749aa0', '#72a375', '#efdd7d', '#71B9BC', '#7189aa', '#90CA8F', '#F59F48'],
+            //标题
+            title: {
+                //x:'center',
+                x: 260,
+                y: 0,
+                //subx:30,
+                //itemGap: 2,
+                text: title + "考试",
+                //subtext: "年级排名",
+                textStyle: {
+                    //left:'3%',
+                    fontSize: 18,
+                    fontWeight: 'bolder',
+                    color: '#333' // 主标题文字颜色
+                },
+            },
+            //提示框
+            tooltip: {
+                show: true,
+                // trigger: 'item'
+                //position: 'left',
+
+                //自动使其位置在左或者右边
+                position: function (pos, params, el, elRect, size) {
+                    var obj = {
+                        top: 10
+                    };
+                    obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 30;
+                    return obj;
+                },
+                //全部显示并且带指示器
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'line',
+                    //type: 'cross',
+                    label: {
+                        backgroundColor: '#6a7985'
+                    },
+
+                },
+                //自定义提示框内容
+                formatter: function (datas) {
+                    //data[0].name是横坐标轴的值
+                    //data[0].value是y轴对应的值
+                    //data[0].seriesName是值的名，也就是每个series对应的名字
+                    var res = '班级排名:' + datas[0].name + '名<br/><br/>',
+                        val;
+                    for (var i = 0, length = datas.length; i < length; i++) {
+                        val = datas[i].value;
+                        res += datas[i].seriesName + '年级排名：' + val + '名<br/><br/>';
+                    }
+                    return res;
+                }
+
+            },
+            legend: { //图例
+                right: 0,
+                bottom: 15,
+                type: 'scroll',
+                data: data[0],
+                //翻页
+                //默认不显示的图例
+                selected: {
+                    '高一11班': false,
+                    '高一12班': false,
+                    '高一13班': false,
+                    '高一10班': false,
+                    '高一09班': false,
+                    '高一08班': false,
+                    '高一07班': false,
+                    '高一06班': false,
+                    '高一05班': false,
+                    '高一04班': false
+                }
+
+            },
+
+            xAxis: {
+                data: datax,
+                name: '班级排名',
+                nameTextStyle: {
+                    padding: [60, 0, 0, -70]
+                }
+            },
+            yAxis: {
+                name: '年级排名',
+                data: datay,
+                inverse: true,
+                axisLabel: {
+                    //单位
+                    formatter: '{value} 名'
+                },
+                nameTextStyle: {
+                    padding: [-210, 30, 0, 0]
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                top: '8%',
+                bottom: '20%',
+                containLabel: true
+            },
+            series: [
+
+                {
+                    symbol: "none",
+
+                    name: data[0][0],
+                    type: 'line',
+                    data: data[2][0]
+                },
+                {
+                    symbol: "none",
+                    name: data[0][1],
+                    type: 'line',
+                    data: data[2][1]
+                }, {
+                    symbol: "none",
+                    name: data[0][2],
+                    type: 'line',
+                    data: data[2][2]
+
+                },
+                {
+                    symbol: "none",
+                    name: data[0][3],
+                    type: 'line',
+                    data: data[2][3]
+
+                },
+                {
+                    symbol: "none",
+                    name: data[0][4],
+                    type: 'line',
+                    data: data[2][4]
+
+                },
+                {
+                    symbol: "none",
+                    name: data[0][5],
+                    type: 'line',
+                    data: data[2][5]
+
+                },
+                {
+                    symbol: "none",
+                    name: data[0][6],
+                    type: 'line',
+                    data: data[2][6]
+
+                },
+                {
+                    symbol: "none",
+                    name: data[0][7],
+                    type: 'line',
+                    data: data[2][7]
+
+                },
+                {
+                    symbol: "none",
+                    name: data[0][8],
+                    type: 'line',
+                    data: data[2][8]
+
+                },
+                {
+                    symbol: "none",
+                    name: data[0][9],
+                    type: 'line',
+                    data: data[2][9]
+
+                },
+                {
+                    symbol: "none",
+                    name: data[0][10],
+                    type: 'line',
+                    data: data[2][10]
+
+                },
+                {
+                    symbol: "none",
+                    name: data[0][11],
+                    type: 'line',
+                    data: data[2][11]
+
+                },
+                {
+                    symbol: "none",
+                    name: data[0][12],
+                    type: 'line',
+                    data: data[2][12]
+
+                },
+                {
+                    symbol: "none",
+                    name: data[0][13],
+                    type: 'line',
+                    data: data[2][13]
+
+                },
+            ]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option1);
+    }
+
+    //高二图形
+    function setMapS2(data, title, id) {
+        var datax = [];
+        var datay = [];
+        for (var i = 1; i < 50; i++) {
+            datax.push(i);
+
+        }
+        for (var i = 1; i < 170; i++) {
+            datay.push(i);
+
+        }
+        //初始化
+        var myChart = echarts.init(document.getElementById(id));
+        //图配置
+        var option1 = {
+            color: ['#7189aa', '#df6b66', '#e79d88', '#8cc1aa', '#749aa0', '#72a375', '#efdd7d', '#71B9BC', '#7189aa', '#90CA8F', '#F59F48'],
+            //标题
+            title: {
+                //x:'center',
+                x: 260,
+                y: 0,
+                //subx:30,
+                //itemGap: 2,
+                text: title + "考试",
+                //subtext: "年级排名",
+                textStyle: {
+                    //left:'3%',
+                    fontSize: 18,
+                    fontWeight: 'bolder',
+                    color: '#333' // 主标题文字颜色
+                },
+            },
+            //提示框
+            tooltip: {
+                show: true,
+                // trigger: 'item'
+                //position: 'left',
+
+                //自动使其位置在左或者右边
+                position: function (pos, params, el, elRect, size) {
+                    var obj = {
+                        top: 10
+                    };
+                    obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 30;
+                    return obj;
+                },
+                //全部显示并且带指示器
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'line',
+                    //type: 'cross',
+                    label: {
+                        backgroundColor: '#6a7985'
+                    },
+
+                },
+                //自定义提示框内容
+                formatter: function (datas) {
+                    //data[0].name是横坐标轴的值
+                    //data[0].value是y轴对应的值
+                    //data[0].seriesName是值的名，也就是每个series对应的名字
+                    var res = '班级排名:' + datas[0].name + '名<br/><br/>',
+                        val;
+                    for (var i = 0, length = datas.length; i < length; i++) {
+                        val = datas[i].value;
+                        res += datas[i].seriesName + '年级排名：' + val + '名<br/><br/>';
+                    }
+                    return res;
+                }
+
+            },
+            legend: { //图例
+                right: 0,
+                bottom: 15,
+                data: data[0],
+                //翻页
+                type: 'scroll',
+                //默认不显示的图例
+                selected: {
+                    //'高二11班': false,
+                    //'高二12班': false,
+                    //'高二13班': false,
+                    '高二10班': false,
+                    '高二09班': false,
+                    '高二08班': false,
+                    '高二07班': false,
+                    '高二06班': false,
+                    '高二05班': false,
+                    '高二04班': false
+                }
+
+            },
+
+            xAxis: {
+                data: datax,
+                name: '班级排名',
+                nameTextStyle: {
+                    padding: [60, 0, 0, -70]
+                }
+            },
+            yAxis: {
+                name: '年级排名',
+                data: datay,
+                inverse: true,
+                axisLabel: {
+                    //单位
+                    formatter: '{value} 名'
+                },
+                nameTextStyle: {
+                    padding: [-210, 30, 0, 0]
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                top: '8%',
+                bottom: '20%',
+                containLabel: true
+            },
+            series: [
+
+                {
+                    symbol: "none",
+                    name: data[0][0],
+                    type: 'line',
+                    data: data[2][0]
+                },
+                {
+                    symbol: "none",
+                    name: data[0][1],
+                    type: 'line',
+                    data: data[2][1]
+                }, {
+                    symbol: "none",
+                    name: data[0][2],
+                    type: 'line',
+                    data: data[2][2]
+
+                },
+                {
+                    symbol: "none",
+                    name: data[0][3],
+                    type: 'line',
+                    data: data[2][3]
+
+                },
+                {
+                    symbol: "none",
+                    name: data[0][4],
+                    type: 'line',
+                    data: data[2][4]
+
+                },
+                {
+                    symbol: "none",
+                    name: data[0][5],
+                    type: 'line',
+                    data: data[2][5]
+
+                },
+                {
+                    symbol: "none",
+                    name: data[0][6],
+                    type: 'line',
+                    data: data[2][6]
+
+                },
+                {
+                    symbol: "none",
+                    name: data[0][7],
+                    type: 'line',
+                    data: data[2][7]
+
+                },
+                {
+                    symbol: "none",
+                    name: data[0][8],
+                    type: 'line',
+                    data: data[2][8]
+
+                },
+                {
+                    symbol: "none",
+                    name: data[0][9],
+                    type: 'line',
+                    data: data[2][9]
+
+                },
+            ]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option1);
+    }
+
+    //高三
+    function setMapS3(data, title, id) {
+        var datax = [];
+        var datay = [];
+        for (var i = 1; i < 50; i++) {
+            datax.push(i);
+
+        }
+        for (var i = 1; i < 170; i++) {
+            datay.push(i);
+
+        }
+        //初始化
+        var myChart = echarts.init(document.getElementById(id));
+        //图配置
+        var option1 = {
+            color: ['#7189aa', '#df6b66', '#e79d88', '#8cc1aa', '#749aa0', '#72a375', '#efdd7d', '#71B9BC', '#7189aa', '#90CA8F', '#F59F48'],
+            //标题
+            title: {
+                //x:'center',
+                x: 260,
+                y: 0,
+                //subx:30,
+                //itemGap: 2,
+                text: title + "考试",
+                //subtext: "年级排名",
+                textStyle: {
+                    //left:'3%',
+                    fontSize: 18,
+                    fontWeight: 'bolder',
+                    color: '#333' // 主标题文字颜色
+                },
+            },
+            //提示框
+            tooltip: {
+                show: true,
+                // trigger: 'item'
+                //position: 'left',
+
+                //自动使其位置在左或者右边
+                position: function (pos, params, el, elRect, size) {
+                    var obj = {
+                        top: 10
+                    };
+                    obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 30;
+                    return obj;
+                },
+                //全部显示并且带指示器
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'line',
+                    //type: 'cross',
+                    label: {
+                        backgroundColor: '#6a7985'
+                    },
+
+                },
+                //自定义提示框内容
+                formatter: function (datas) {
+                    //data[0].name是横坐标轴的值
+                    //data[0].value是y轴对应的值
+                    //data[0].seriesName是值的名，也就是每个series对应的名字
+                    var res = '班级排名:' + datas[0].name + '名<br/><br/>',
+                        val;
+                    for (var i = 0, length = datas.length; i < length; i++) {
+                        val = datas[i].value;
+                        res += datas[i].seriesName + '年级排名：' + val + '名<br/><br/>';
+                    }
+                    return res;
+                }
+
+            },
+            legend: { //图例
+                right: 0,
+                bottom: 15,
+                data: data[0],
+                //翻页
+                type: 'scroll',
+                //默认不显示的图例
+                selected: {
+                    '高三11班': false,
+                    //'高一12班': false,
+                    //'高一13班': false,
+                    '高三10班': false,
+                    '高三09班': false,
+                    '高三08班': false,
+                    '高三07班': false,
+                    '高三06班': false,
+                    '高三05班': false,
+                    '高三04班': false
+                }
+
+            },
+
+            xAxis: {
+                data: datax,
+                name: '班级排名',
+                nameTextStyle: {
+                    padding: [60, 0, 0, -70]
+                }
+            },
+            yAxis: {
+                name: '年级排名',
+                data: datay,
+                inverse: true,
+                axisLabel: {
+                    //单位
+                    formatter: '{value} 名'
+                },
+                nameTextStyle: {
+                    padding: [-210, 30, 0, 0]
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                top: '8%',
+                bottom: '20%',
+                containLabel: true
+            },
+            series: [
+
+                {
+                    symbol: "none",
+
+                    name: data[0][0],
+                    type: 'line',
+                    data: data[2][0]
+                },
+                {
+                    symbol: "none",
+                    name: data[0][1],
+                    type: 'line',
+                    data: data[2][1]
+                }, {
+                    symbol: "none",
+                    name: data[0][2],
+                    type: 'line',
+                    data: data[2][2]
+
+                },
+                {
+                    symbol: "none",
+                    name: data[0][3],
+                    type: 'line',
+                    data: data[2][3]
+
+                },
+                {
+                    symbol: "none",
+                    name: data[0][4],
+                    type: 'line',
+                    data: data[2][4]
+
+                },
+                {
+                    symbol: "none",
+                    name: data[0][5],
+                    type: 'line',
+                    data: data[2][5]
+
+                },
+                {
+                    symbol: "none",
+                    name: data[0][6],
+                    type: 'line',
+                    data: data[2][6]
+
+                },
+                {
+                    symbol: "none",
+                    name: data[0][7],
+                    type: 'line',
+                    data: data[2][7]
+
+                },
+                {
+                    symbol: "none",
+                    name: data[0][8],
+                    type: 'line',
+                    data: data[2][8]
+
+                },
+                {
+                    symbol: "none",
+                    name: data[0][9],
+                    type: 'line',
+                    data: data[2][9]
+
+                },
+                {
+                    symbol: "none",
+                    name: data[0][10],
+                    type: 'line',
+                    data: data[2][10]
+
+                },
+            ]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option1);
+    }
+
+    //下拉选择框功能
+    function ddb(sq) {
+        var tid = "#t" + sq;
+        var sid = "#s" + sq;
+        var tSelect = $(tid);
+        var sSelect = $(sid);
+        var id = "m" + sq;
+        var tcheckValue = $(tid).val();
+        var scheckValue = $(sid).val();
+        getjsno(tcheckValue, scheckValue, id, getyk);
+        //当下拉框被选择
+        tSelect.on('change', function () {
+            var tcheckValue = $(tid).val();
+            var scheckValue = $(sid).val();
+            getjsno(tcheckValue, scheckValue, id, getyk);
+        });
+        sSelect.on('change', function () {
+            var tcheckValue = $(tid).val();
+            var scheckValue = $(sid).val();
+            getjsno(tcheckValue, scheckValue, id, getyk);
+        });
+
+    }
+
+    //下拉选择框功能
+    function ddbx() {
+        var tid = "#t4"
+        var tSelect = $(tid);
+        var title = $(tid).find("option:selected").text();
+        var tcheckValue = $(tid).val();
+        getjsnox(tcheckValue, title, getAllScore);
+        //当下拉框被选择
+        tSelect.on('change', function () {
+            var title = $(tid).find("option:selected").text();
+            var tcheckValue = $(tid).val();
+            getjsnox(tcheckValue, title, getAllScore);
+        });
+    }
+
+    ddbx();
+    ddb(1);
+    ddb(2);
+    ddb(3);
+</script>
+</body>
+
+</html>

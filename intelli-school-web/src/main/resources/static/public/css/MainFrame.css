@@ -1,0 +1,7 @@
+#main {
+	/* background-color: white; */
+	width: 1200px;
+	/* 仅做展示时设置height固定值为600，否则使用auto自动扩展高度 */
+	/* height: auto; */
+	margin-top: 80px;
+}

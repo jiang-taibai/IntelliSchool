@@ -1,0 +1,46 @@
+/* 默认的分布框样式模板 */
+
+/* 未指定高宽的白色圆角分布框，左浮动，下外边距20PX */
+.generalDistributionBox {
+    background-color: white;
+    cursor: pointer;
+	border-radius: 1em;
+	float: left;
+	margin-bottom: 20px;
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+.generalDistributionBox:hover {
+	box-shadow: 0px 0px 5px 0px grey;
+}
+
+/* 分布框的标题栏 */
+.generalDistributionTitleBox {
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	font-size: 18px;
+	font-weight: 700;
+	text-align: center;
+	border-bottom: 3px dashed #d7d8d9;
+}
+
+.mg-right-20 {
+	margin-right: 20px;
+}
+
+.generalDistributionRemark {
+    float: left;
+    cursor: pointer;
+    background-color: blanchedalmond;
+    /* box-shadow: 2px 2px 3px 0px gray; */
+    border-radius: 1em;
+    padding: 10px;
+    margin: 10px;
+    border: 2px dashed #d7d8d9;
+    transition: 0.2s box-shadow ease-in-out;
+}
+.generalDistributionRemark:hover {
+    border: 2px solid #d7d8d9;
+    box-shadow: 0px 0px 5px 0px gray;
+}

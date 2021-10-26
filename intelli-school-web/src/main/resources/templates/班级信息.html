@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>IntelliSchool-班级信息</title>
+    <meta name="description" content="IntelliSchool项目">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" th:href="@{/public/img/IntelliSchool Logo.png}" />
+
+    <!-- 网页基本CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/BasicWebsiteSettings.css}">
+
+    <!-- 导航栏CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/NavigationBar.css}">
+
+    <!-- 主体基本CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/MainFrame.css}">
+
+    <!-- 默认分布CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/DefaultDistributionTemplate.css}">
+
+    <!-- 引入jQuery支持 -->
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <!-- Bootstrap框架核心CSS样式 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://cdn.bootcss.com/bootstrap-select/1.12.4/css/bootstrap-select.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css">
+    <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
+
+    <style type="text/css">
+        /* 放置在左边的悬浮选择框 */
+        #selectBar {
+            position: fixed;
+            right: 20px;
+            top: 250px;
+            width: 180px;
+            height: 210px;
+            padding: 12px;
+            box-shadow: 0px 0px 5px 0px grey;
+            background-color: white;
+            transition: all 0.2s ease-in-out;
+        }
+
+        #selectBar:hover {
+            box-shadow: 0px 0px 10px 0px grey;
+        }
+
+        /* 班级信息的上半部分，用于放置班级ID、班级名称、班级人数 */
+        #classInfoUp {
+            width: 100%;
+            height: 120px;
+            padding: 20px;
+            font-size: 16px;
+        }
+
+        /* 班级信息的下半部分，用于放置各科教师的ID和姓名性别 */
+        #classInfoDown {
+            width: 100%;
+            height: 250px;
+            padding: 20px;
+        }
+
+        .mg-bottom-20 {
+            margin-bottom: 20px;
+        }
+
+        .teacherInfoCell {
+            float: left;
+            margin-bottom: 10px;
+            border-radius: 1em;
+            text-align: center;
+            font-size: 15px;
+            line-height: 30px;
+            border-right: 1px solid #d7d8d9;
+            border-top: 1px solid #d7d8d9;
+            border-bottom: 1px solid #d7d8d9;
+            display: none;
+        }
+
+        .teacherInfoCell-Title {
+            width: 30px;
+            height: 30px;
+            border-radius: 1em;
+            float: left;
+            font-weight: 800;
+            color: white;
+            background-color: rgb(51, 122, 183);
+        }
+
+        .teacherInfoCell-Info {
+            float: left;
+            height: 30px;
+            width: 120px;
+            padding-left: 5px;
+            padding-right: 10px;
+        }
+
+        #classStudentInfoTableBox {
+            width: 100%;
+            height: 370px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .pagination-detail {
+            display: none;
+        }
+
+
+        .existSubject {
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a>
+    to improve your experience.</p>
+<![endif]-->
+<div id="bar">
+    <div id="logo">IntelliSchool<img th:src="@{/public/img/IntelliSchool Logo.png}" height="30px" style="margin: 10px; float:left;"></div>
+    <div id="linkBar">
+        <ul>
+            <li><a href="/basicInfo">基本数据</a></li>
+            <li><a href="/teacherManage">教师管理</a></li>
+            <li><a href="/scoreAnalyse">成绩分析</a></li>
+            <li><a href="/consumeInfo">消费信息</a></li>
+            <li class="linkBarSelected"><a href="javascript:;">班级信息</a></li>
+            <li><a href="/studentInfo">学生信息</a></li>
+            <li><a href="/intelliAnalyse">Intelli分析</a></li>
+            <li><a href="/intelliScore">Intelli预测</a></li>
+            <li><a href="/intelliConsume">Intelli消费</a></li>
+        </ul>
+    </div>
+</div>
+
+<div id="selectBar">
+
+    <div class="form-group">
+        班级选择：
+        <select class="selectpicker" data-width="155px" id="classIdSelect">
+            <optgroup label="高一" data-subtext="">
+                <option value="220101" selected>高一01班</option>
+                <option value="220102">高一02班</option>
+                <option value="220103">高一03班</option>
+                <option value="220104">高一04班</option>
+                <option value="220105">高一05班</option>
+                <option value="220106">高一06班</option>
+                <option value="220107">高一07班</option>
+                <option value="220108">高一08班</option>
+                <option value="220109">高一09班</option>
+                <option value="220110">高一10班</option>
+                <option value="220111">高一11班</option>
+                <option value="220112">高一12班</option>
+                <option value="220113">高一13班</option>
+            </optgroup>
+            <optgroup label="高二" data-subtext="">
+                <option value="210201">高二01班</option>
+                <option value="210202">高二02班</option>
+                <option value="210203">高二03班</option>
+                <option value="210204">高二04班</option>
+                <option value="210205">高二05班</option>
+                <option value="210206">高二06班</option>
+                <option value="210207">高二07班</option>
+                <option value="210208">高二08班</option>
+                <option value="210209">高二09班</option>
+                <option value="210210">高二10班</option>
+            </optgroup>
+            <optgroup label="高三" data-subtext="">
+                <option value="200301">高三01班</option>
+                <option value="200302">高三02班</option>
+                <option value="200303">高三03班</option>
+                <option value="200304">高三04班</option>
+                <option value="200305">高三05班</option>
+                <option value="200306">高三06班</option>
+                <option value="200307">高三07班</option>
+                <option value="200308">高三08班</option>
+                <option value="200309">高三09班</option>
+                <option value="200310">高三10班</option>
+                <option value="200311">高三11班</option>
+            </optgroup>
+        </select>
+    </div>
+
+    <div class="form-group">
+        考试选择：
+        <select class="selectpicker" data-width="155px" id="examIdSelect">
+            <optgroup label="高一月考" data-subtext="" id="seniorOneOptgroup">
+                <option value="10000" selected>高一第一次月考</option>
+                <option value="10003">高一第二次月考</option>
+                <option value="10006">高一第三次月考</option>
+                <option value="10009">高一第四次月考</option>
+            </optgroup>
+            <optgroup label="高二月考" data-subtext="" id="seniorTwoOptgroup">
+                <option value="10001">高二第一次月考</option>
+                <option value="10004">高二第二次月考</option>
+                <option value="10007">高二第三次月考</option>
+                <option value="10010">高二第四次月考</option>
+            </optgroup>
+            <optgroup label="高三月考" data-subtext="" id="seniorThreeOptgroup">
+                <option value="10002">高三第一次月考</option>
+                <option value="10005">高三第二次月考</option>
+                <option value="10008">高三第三次月考</option>
+                <option value="10011">高三第四次月考</option>
+            </optgroup>
+        </select>
+    </div>
+
+    <button class="btn btn-default" style="width: 155px;" onclick="updateChart()">确认</button>
+</div>
+
+<div id="main">
+
+    <div class="generalDistributionBox mg-right-20" style="width: 400px; height: 400px;">
+        <div class="generalDistributionTitleBox">-- 班级信息 --</div>
+        <div id="classInfoUp">
+            <div class="mg-bottom-20"><strong>班级ID: </strong><span data-title="classId"></span></div>
+            <div class="mg-bottom-20"><strong>班级名称: </strong><span data-title="className"></span></div>
+            <div class="mg-bottom-20"><strong>班级人数: </strong><span data-title="classSize"></span></div>
+        </div>
+        <div id="classInfoDown">
+            <div class="teacherInfoCell mg-right-20">
+                <div class="teacherInfoCell-Title">语</div>
+                <div class="teacherInfoCell-Info" data-title="subject_1"></div>
+            </div>
+            <div class="teacherInfoCell mg-right-20">
+                <div class="teacherInfoCell-Title">数</div>
+                <div class="teacherInfoCell-Info" data-title="subject_2"></div>
+            </div>
+            <div class="teacherInfoCell mg-right-20">
+                <div class="teacherInfoCell-Title">英</div>
+                <div class="teacherInfoCell-Info" data-title="subject_3"></div>
+            </div>
+            <div class="teacherInfoCell mg-right-20">
+                <div class="teacherInfoCell-Title">物</div>
+                <div class="teacherInfoCell-Info" data-title="subject_4"></div>
+            </div>
+            <div class="teacherInfoCell mg-right-20">
+                <div class="teacherInfoCell-Title">化</div>
+                <div class="teacherInfoCell-Info" data-title="subject_5"></div>
+            </div>
+            <div class="teacherInfoCell mg-right-20">
+                <div class="teacherInfoCell-Title">生</div>
+                <div class="teacherInfoCell-Info" data-title="subject_6"></div>
+            </div>
+            <div class="teacherInfoCell mg-right-20">
+                <div class="teacherInfoCell-Title">政</div>
+                <div class="teacherInfoCell-Info" data-title="subject_7"></div>
+            </div>
+            <div class="teacherInfoCell mg-right-20">
+                <div class="teacherInfoCell-Title">史</div>
+                <div class="teacherInfoCell-Info" data-title="subject_8"></div>
+            </div>
+            <div class="teacherInfoCell mg-right-20">
+                <div class="teacherInfoCell-Title">地</div>
+                <div class="teacherInfoCell-Info" data-title="subject_9"></div>
+            </div>
+        </div>
+    </div>
+    <div class="generalDistributionBox mg-right-20" style="width: 700px; height: 400px;">
+        <div class="generalDistributionTitleBox">-- 学生信息 --</div>
+        <div id="classStudentInfoTableBox">
+            <table class="table table-bordered" id="classStudentInfoTable" data-pagination="true"
+                   data-side-pagination="client" data-page-size="6">
+            </table>
+        </div>
+    </div>
+    <div class="generalDistributionBox mg-right-20" style="width: 1120px; height: 300px;">
+        <div class="generalDistributionTitleBox">-- 各科成绩最高最低平均分趋势 --</div>
+        <div id="scoreTendencyChart" style="width: 1120; height: 270px;"></div>
+    </div>
+    <div class="generalDistributionBox mg-right-20" style="width: 1120px; height: 600px;">
+        <div class="generalDistributionTitleBox">-- 各科成绩人数分布 --</div>
+        <div id="scoreDistributionChart" style="width: 1120px; height: 300px;"></div>
+        <div id="totalScoreDistributionChart" style="width: 1120px; height: 300px;"></div>
+    </div>
+    <div class="generalDistributionBox mg-right-20" style="width: 1120px; height: 630px;">
+        <div class="generalDistributionTitleBox">-- 消费情况 --</div>
+        <div id="dailyConsumeChart" style="width: 1120px; height: 300px;"></div>
+        <div id="dailyTotalConsumeChart" style="width: 1120px; height: 300px;"></div>
+    </div>
+</div>
+
+
+</body>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-select/1.12.4/js/i18n/defaults-zh_CN.min.js"></script>
+
+<!-- echarts支持 -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+
+<script th:src="@{/public/js/IntelliSchoolAPI-JsonData.js}"></script>
+<script th:src="@{/class info/js/ScoreTendencyChart.js}"></script>
+<script th:src="@{/public/js/CustomLoading.js}"></script>
+<script th:src="@{/class info/js/ScoreDistributionChart.js}"></script>
+<script th:src="@{/class info/js/ConsumeChart.js}"></script>
+<script>
+    function changeTime(time) {
+        if (time) {
+            var oDate = new Date(time * 1),
+                oYear = oDate.getFullYear(),
+                oMonth = oDate.getMonth() + 1,
+                oDay = oDate.getDate(),
+                oTime = oYear + '年' + oMonth + '月' + oDay + '日';//拼接时间
+            return oTime;
+        } else {
+            return "";
+        }
+    }
+
+    $("#classIdSelect").change(function () {
+        // 切换班级后，应当先清除考试栏目所选项，如选择高一，则只显示高一栏目
+        var classId = $("#classIdSelect").val()
+        var grade = parseInt((classId / 100) % 100);
+        $("#seniorOneOptgroup").attr("disabled", grade != 1);
+        $("#seniorTwoOptgroup").attr("disabled", grade != 2);
+        $("#seniorThreeOptgroup").attr("disabled", grade != 3);
+        $('#examIdSelect').selectpicker('val', ['noneSelectedText'])//回到初始状态
+    });
+
+
+    function updateClassBasicInfo() {
+        var classId = $("#classIdSelect").val()
+        // console.log("当前班级classId = " + classId)
+        getIntelliSchoolApiJson("/classData/getClassBasicInfo", {
+            classId: classId
+        }, updateClassBasicInfo_callback)
+    }
+
+    function updateClassBasicInfo_callback(data) {
+        $.each(data, function (key, value) {
+            if (checkNum(key)) {
+                var subjectId = parseInt(key);
+                $('.teacherInfoCell')[subjectId - 1].classList.remove("existSubject")
+                if (value != null) {
+                    $('.teacherInfoCell')[subjectId - 1].classList.add("existSubject")
+                    $('.teacherInfoCell-Info[data-title=subject_' + key + ']')[0].innerHTML = '[' + value['id'] + ']' + value['name'];
+                }
+                // console.log('.teacherInfoCell-Info[data-title=subject_' + key + ']');
+            } else {
+                $('span[data-title=' + key + ']')[0].innerHTML = value;
+            }
+        })
+    }
+
+    function checkNum(num) {
+        var reg = /^[1-9]+[0-9]*]*$/; //判断字符串是否为数字 ，判断正整数用/^[1-9]+[0-9]*]*$/
+        return reg.test(num)
+    }
+
+    function updateClassAllStudents() {
+        var classId = $("#classIdSelect").val()
+        getIntelliSchoolApiJson("/classData/getClassAllStudents", {
+            classId: classId
+        }, updateClassAllStudents_callback)
+    }
+
+    function updateClassAllStudents_callback(data) {
+        var table = $("#classStudentInfoTable")
+        table.bootstrapTable("removeAll");
+        for (i = 0; i < data.length; ++i) {
+            var student = data[i];
+            var row =
+                {
+                    "id": student.stuId,
+                    "name": student.stuName,
+                    "sex": student.stuSex,
+                    "nation": student.stuNation,
+                    "birthday": changeTime(student.stuBorndate),
+                    "nativePlace": student.stuNativeplace,
+                    "residenceType": student.stuResidencetype,
+                    "policy": student.stuPolicy,
+                };
+            //append  追加到最后一行
+            //prepend  新增到第一行
+            $('#classStudentInfoTable').bootstrapTable('append', row);
+            //更新行数据
+            $('#classStudentInfoTable').bootstrapTable('updateRow', row);
+        }
+    }
+</script>
+
+<script>
+    updateChart();
+
+    function updateChart() {
+        if ($('#classIdSelect').val() == null || $('#examIdSelect').val() == null) {
+            alert("请选择班级和考试场次")
+            return;
+        }
+        updateClassBasicInfo()
+        updateClassAllStudents()
+        updateScoreTendencyChart()
+        updateScoreDistributionChart()
+        updateTotalScoreDistributionChart()
+        updateDailyConsume()
+        updateDailyTotalConsume()
+    }
+</script>
+<script>
+    function initTable() {
+        $("#classStudentInfoTable").bootstrapTable({
+            buttonsAlign: "left",//按钮对齐方式
+            search: true,
+            columns: [{
+                field: "id",
+                title: "学号"
+            }, {
+                field: "name",
+                title: "姓名"
+            }, {
+                field: "sex",
+                title: "性别"
+            }, {
+                field: "nation",
+                title: "民族"
+            }, {
+                field: "birthday",
+                title: "出生日期"
+            }, {
+                field: "nativePlace",
+                title: "家庭住址"
+            }, {
+                field: "residenceType",
+                title: "家庭类型"
+            }, {
+                field: "policy",
+                title: "政治面貌"
+            },]
+        });
+    }
+
+    $(document).ready(function () {
+        initTable();
+    });
+</script>
+
+</html>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dajiangsai.mapper.ScoreRankMapper">
+  <select id="queryRankInClass" parameterType="Map" resultType="com.dajiangsai.pojo.vo.ScoreInfoVO">
+    -- 查询某次考试某科目某班的成绩情况
+    SELECT
+      exam_id, exam_subject, class_id, class_name, student.stu_id as stu_id, exam_score
+    FROM
+      score
+        JOIN student ON ( score.stu_id = student.stu_id )
+    WHERE
+      score.exam_id = #{exam_id}
+      AND score.exam_subject = #{exam_subject}
+      AND student.class_id = #{class_id}
+    ORDER BY
+      score.exam_score DESC;
+  </select>
+
+  <select id="queryRankInSchool" parameterType="Map" resultType="com.dajiangsai.pojo.vo.ScoreInfoVO">
+    -- 查询某次考试某科目所有学生的成绩排名情况
+    SELECT
+      exam_id, exam_subject, class_id, class_name, student.stu_id as stu_id, exam_score
+    FROM
+      score
+        JOIN student ON ( score.stu_id = student.stu_id )
+    WHERE
+      score.exam_id = #{exam_id}
+      AND score.exam_subject = #{exam_subject}
+    ORDER BY
+      score.exam_score DESC;
+  </select>
+
+  <select id="queryTotalRankInSchool" parameterType="Map" resultType="com.dajiangsai.pojo.vo.TotalScoreRankVO">
+    -- 查询某次考试所有学生的总分成绩排名情况
+    SELECT
+      exam_id, class_id, class_name, student.stu_id as stu_id, SUM(exam_score) AS total_score
+    FROM
+      score
+        JOIN student ON ( score.stu_id = student.stu_id )
+    GROUP BY
+      exam_id, class_id, class_name, student.stu_id
+    HAVING
+      score.exam_id = #{exam_id}
+    ORDER BY
+      total_score DESC;
+  </select>
+
+  <select id="queryTotalRankInClass" parameterType="Map" resultType="com.dajiangsai.pojo.vo.TotalScoreRankVO">
+    -- 查询某次考试某班学生的总分成绩排名情况
+    SELECT
+      exam_id,
+      class_id,
+      class_name,
+      student.stu_id AS stu_id,
+      SUM( exam_score ) AS total_score
+    FROM
+      score
+        JOIN student ON ( score.stu_id = student.stu_id )
+    GROUP BY
+      exam_id,
+      class_id,
+      class_name,
+      student.stu_id
+    HAVING
+      score.exam_id = #{exam_id}
+       AND class_id = #{class_id}
+    ORDER BY
+      total_score DESC;
+  </select>
+
+
+</mapper>

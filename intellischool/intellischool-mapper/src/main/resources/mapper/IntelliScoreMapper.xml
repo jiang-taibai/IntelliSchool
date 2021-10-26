@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dajiangsai.mapper.IntelliScoreMapper">
+
+  <select id="queryAllGradeThreeScore" resultType="com.dajiangsai.pojo.vo.IntelliScoreVO">
+    SELECT
+#       forecast_show.stu_id AS stuId,
+#       forecast_show.stu_name AS stuName,
+#       forecast_show.stu_sex AS stuSex,
+#       forecast_show.stu_nation AS stuNation,
+#       forecast_show.stu_borndate AS stuBorndate,
+#       forecast_show.class_name AS className,
+#       forecast_show.stu_nativePlace AS stuNativePlace,
+#       forecast_show.stu_residenceType AS stuResidenceType,
+#       forecast_show.stu_policy AS stuPolicy,
+#       forecast_show.class_id AS classId,
+      forecast_show.exam_id AS examId,
+      forecast_show.exam_name AS examName,
+      forecast_show.exam_score AS examScore
+    FROM
+      forecast_show
+    WHERE
+      stu_id = #{stuId};
+  </select>
+
+
+</mapper>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>IntelliSchool-基本数据</title>
+    <meta name="description" content="IntelliSchool项目">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" th:href="@{/public/img/IntelliSchool Logo.png}" />
+
+    <!-- 网页基本CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/BasicWebsiteSettings.css}">
+
+    <!-- 导航栏CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/NavigationBar.css}">
+
+    <!-- 主体基本CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/MainFrame.css}">
+
+    <!-- 默认分布CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/DefaultDistributionTemplate.css}">
+
+    <!-- 引入jQuery支持 -->
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <!-- 本页独有的CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/basic info/css/basicInfoCSS.css}">
+</head>
+
+<body>
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a>
+    to improve your experience.</p>
+<![endif]-->
+<div id="bar">
+    <div id="logo">IntelliSchool<img th:src="@{/public/img/IntelliSchool Logo.png}" height="30px" style="margin: 10px; float:left;"></div>
+    <div id="linkBar">
+        <ul>
+            <li class="linkBarSelected"><a href="javascript:;">基本数据</a></li>
+            <li><a href="/teacherManage">教师管理</a></li>
+            <li><a href="/scoreAnalyse">成绩分析</a></li>
+            <li><a href="/consumeInfo">消费信息</a></li>
+            <li><a href="/classInfo">班级信息</a></li>
+            <li><a href="/studentInfo">学生信息</a></li>
+            <li><a href="/intelliAnalyse">Intelli分析</a></li>
+            <li><a href="/intelliScore">Intelli预测</a></li>
+            <li><a href="/intelliConsume">Intelli消费</a></li>
+        </ul>
+    </div>
+</div>
+
+<div id="main">
+    <div class="generalDistributionBox mg-right-20" style="width: 600px; height: 400px;">
+        <div class="generalDistributionTitleBox">-- 年龄分布 --</div>
+        <div id="main-age" class="pt"></div>
+    </div>
+    <div class="generalDistributionBox" style="width: 500px; height: 400px;">
+        <div class="generalDistributionTitleBox">-- 人数比例 --</div>
+        <!--
+            -->
+
+
+        <div id="m2">
+            <div id="m2-1">
+                <div id="f1" class="ft">女</div>
+                <div id="f2" class="ft">男</div>
+                <div id="f3" class="ft">高一</div>
+                <div id="f4" class="ft">高二</div>
+                <div id="f5" class="ft">高三</div>
+                <div id="m2-1-1">
+
+                </div>
+                <div id="m2-1-2"></div>
+            </div>
+            <div id="m2-2">
+
+                <div id="m2-2-1"></div>
+                <div id="m2-2-2"></div>
+            </div>
+        </div>
+    </div>
+    <div class="generalDistributionBox mg-right-20" style="width: 800px; height: 550px;">
+        <div class="generalDistributionTitleBox">-- 生源地分布 --</div>
+        <!-- 实际内容高度为570px -->
+        <div id="MapBox">
+            <div id="ChinaMap"></div>
+            <div id="JiangXiMap"></div>
+        </div>
+    </div>
+    <div class="generalDistributionBox" style="width: 300px; height: 550px;">
+        <div class="generalDistributionTitleBox">-- 班级人数 --</div>
+        <div id="m3"></div>
+    </div>
+</div>
+
+</body>
+
+<!-- 引入以支持echarts画地图分布图 -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+<!-- 引入自定义的画地图的JS脚本文件 -->
+<script type="text/javascript" th:src="@{/basic info/js/DrawMap-China Distribution.js}"></script>
+<script type="text/javascript" th:src="@{/basic info/js/DrawMap-JiangXi Distribution.js}"></script>
+
+<!-- <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script> -->
+<script th:src="@{/public/js/IntelliSchoolAPI-JsonData.js}"></script>
+<script th:src="@{/public/js/CustomLoading.js}"></script>
+<script th:src="@{/basic info/js/basicInfoJs.js}"></script>
+
+<!-- 待文档加载完毕启动画地图脚本 -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        updateChinaMap();
+        updateJiangXiMap();
+        initBasicInfo_Szx();
+    });
+</script>
+
+</html>

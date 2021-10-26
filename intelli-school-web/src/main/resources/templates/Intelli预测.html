@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>IntelliSchool-Intelli预测</title>
+    <meta name="description" content="IntelliSchool项目模板页">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" th:href="@{/public/img/IntelliSchool Logo.png}" />
+
+    <!-- 网页基本CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/BasicWebsiteSettings.css}">
+
+    <!-- 导航栏CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/NavigationBar.css}">
+
+    <!-- 主体基本CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/MainFrame.css}">
+
+    <!-- 默认分布CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/DefaultDistributionTemplate.css}">
+
+    <!-- 引入jQuery支持 -->
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!-- Bootstrap框架核心CSS样式 -->
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://cdn.bootcss.com/bootstrap-select/1.12.4/css/bootstrap-select.min.css" rel="stylesheet">
+
+    <style type="text/css">
+        #selectBar {
+            float: left;
+            margin-left: 20px;
+            width: 150px;
+            height: 120px;
+            padding: 10px;
+            padding-top: 20px;
+            /* box-shadow: 0px 0px 5px 0px grey; */
+            transition: all 0.2s ease-in-out;
+            border-radius: 0.5em;
+        }
+
+        #studentInfoBox {
+            width: 1010px;
+            float: left;
+            height: 120px;
+            padding-left: 20px;
+        }
+
+        /* 学生信息标签 */
+        .studentInfoCell {
+            cursor: pointer;
+            float: left;
+            padding-left: 1em;
+            padding-right: 1em;
+            height: 40px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border-radius: 1em;
+            line-height: 40px;
+            font-size: 16px;
+            box-shadow: 0px 0px 2px 0px grey;
+            margin-right: 10px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .studentInfoCell:hover {
+            box-shadow: 0px 0px 4px 0px grey;
+        }
+    </style>
+</head>
+
+<body>
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <div id="bar">
+        <div id="logo">IntelliSchool<img th:src="@{/public/img/IntelliSchool Logo.png}" height="30px" style="margin: 10px; float:left;"></div>
+        <div id="linkBar">
+            <ul>
+                <li><a href="/basicInfo">基本数据</a></li>
+                <li><a href="/teacherManage">教师管理</a></li>
+                <li><a href="/scoreAnalyse">成绩分析</a></li>
+                <li><a href="/consumeInfo">消费信息</a></li>
+                <li><a href="/classInfo">班级信息</a></li>
+                <li><a href="/studentInfo">学生信息</a></li>
+                <li><a href="/intelliAnalyse">Intelli分析</a></li>
+                <li class="linkBarSelected"><a href="javascript:;">Intelli预测</a></li>
+                <li><a href="/intelliConsume">Intelli消费</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="main">
+        <div class="generalDistributionBox" style="width: 100%; height: 150px;">
+            <div class="generalDistributionTitleBox">-- 学生信息 --</div>
+            <div id="selectBar" class="mg-right-20">
+                <div class="form-group">
+                    <select class="selectpicker show-tick form-control" name="studentIdSelect" data-width="150px" id="studentIdSelect"
+                        data-live-search="true">
+                        <option value="15648">[15648] 张炳正</option>
+                        <!-- 此处可以异步获取所有学生信息，仅做举例 -->
+                    </select>
+                </div>
+                <button class="btn btn-default" style="width: 150px;" onclick="changeStudent()">确认</button>
+            </div>
+            <!-- <div class="generalDistributionRemark">此处放置学生的基本信息<br />
+                学生信息包括 学号、姓名、性别、民族、出生日期、家庭住址、家庭类型、政治面貌</div> -->
+            <div id="studentInfoBox">
+                <div class="studentInfoCell"><strong>学号: </strong><span data-title="stuId">Loading...</span></div>
+                <div class="studentInfoCell"><strong>姓名: </strong><span data-title="stuName">Loading...</span></div>
+                <div class="studentInfoCell"><strong>性别: </strong><span data-title="stuSex">Loading...</span></div>
+                <div class="studentInfoCell"><strong>民族: </strong><span data-title="stuNation">Loading...</span></div>
+                <div class="studentInfoCell">
+                    <strong>出生日期: </strong><span data-title="stuBorndate">Loading...</span>
+                </div>
+                <div class="studentInfoCell">
+                    <strong>家庭住址: </strong><span data-title="stuNativeplace">Loading...</span>
+                </div>
+                <div class="studentInfoCell">
+                    <strong>家庭类型: </strong><span data-title="stuResidencetype">Loading...</span>
+                </div>
+                <div class="studentInfoCell">
+                    <strong>政治面貌: </strong><span data-title="stuPolicy">Loading...</span>
+                </div>
+            </div>
+        </div>
+        <div class="generalDistributionBox" style="width: 100%; height: 400px;">
+            <div class="generalDistributionTitleBox">-- 成绩趋势与预测 --</div>
+            <div id="ScoreForecastLineChart" style="width: 100%; height: 370px;"></div>
+        </div>
+    </div>
+
+</body>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-select/1.12.4/js/i18n/defaults-zh_CN.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+
+<!-- 访问API数据 -->
+<script th:src="@{/public/js/IntelliSchoolAPI-JsonData.js}"></script>
+<!-- 引入echarts支持 -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+<!-- 本页JS文件 -->
+<script type="text/javascript" th:src="@{/intelli score/js/StudentBasicInfo.js}"></script>
+<script type="text/javascript" th:src="@{/intelli score/js/ScoreLineChart.js}"></script>
+<script th:src="@{/public/js/CustomLoading.js}"></script>
+<script>
+    $(document).ready(function () {
+        getIntelliSchoolApiJson("/studentData/getAllStudentIdNames", null, function (data) {
+            $.each(data, function (index, value) {
+                // console.log(value['studentId'])
+                if (value['studentId'] >= 15649) {
+                    $("#studentIdSelect")
+                        .append("<option value='" + value['studentId'] + "'>[" +
+                            value['studentId'] + "] " + value['studentName'] + "</option>")
+                }
+            })
+            $("#studentIdSelect").selectpicker("refresh");
+        })
+        changeStudent()
+    })
+
+    function changeStudent() {
+        var stuId = $('select[name="studentIdSelect"]').val()
+        queryStudentInfo(stuId)
+        updateScoreLineChart(stuId)
+    }
+</script>
+
+</html>

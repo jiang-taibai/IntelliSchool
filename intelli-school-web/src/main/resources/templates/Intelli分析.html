@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>IntelliSchool-Intelli分析</title>
+    <meta name="description" content="IntelliSchool项目">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" th:href="@{/public/img/IntelliSchool Logo.png}"/>
+
+    <!-- 网页基本CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/BasicWebsiteSettings.css}">
+
+    <!-- 导航栏CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/NavigationBar.css}">
+
+    <!-- 主体基本CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/MainFrame.css}">
+
+    <!-- 默认分布CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/DefaultDistributionTemplate.css}">
+
+    <!-- 引入jQuery支持 -->
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <style type="text/css">
+        #relatedChartPart {
+            margin: 0 auto;
+            width: 970px;
+            height: 470px;
+        }
+
+        .mg-bottom-70 {
+            margin-bottom: 70px;
+        }
+
+        #relatedChartPartAnalyse {
+            padding-left: 50px;
+            height: 500px;
+            width: 1200px;
+        }
+
+        #subjectRelationAnalyseText {
+            float: left;
+            font-family: "Microsoft YaHei";
+            font-size: 20px;
+            width: 610px;
+            height: 500px;
+            padding: 100px;
+            display: table;
+        }
+    </style>
+</head>
+
+<body>
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a>
+    to improve your experience.</p>
+<![endif]-->
+<div id="bar">
+    <div id="logo">IntelliSchool<img th:src="@{/public/img/IntelliSchool Logo.png}" height="30px"
+                                     style="margin: 10px; float:left;"></div>
+    <div id="linkBar">
+        <ul>
+            <li><a href="/basicInfo">基本数据</a></li>
+            <li><a href="/teacherManage">教师管理</a></li>
+            <li><a href="/scoreAnalyse">成绩分析</a></li>
+            <li><a href="/consumeInfo">消费信息</a></li>
+            <li><a href="/classInfo">班级信息</a></li>
+            <li><a href="/studentInfo">学生信息</a></li>
+            <li class="linkBarSelected"><a href="javascript:;">Intelli分析</a></li>
+            <li><a href="/intelliScore">Intelli预测</a></li>
+            <li><a href="/intelliConsume">Intelli消费</a></li>
+
+        </ul>
+    </div>
+</div>
+
+<div id="main">
+    <div class="generalDistributionBox mg-right-20 subjectTendencyBox" style="width: 1200px; height: 104    0px;">
+        <div class="generalDistributionTitleBox">-- 学科相关度分析 --</div>
+        <div id="relatedChartPart">
+            <div id="Chinese-English" style="width: 220px; height: 200px; margin-right: 30px;
+                    margin-bottom: 35px; float: left;"></div>
+            <div id="Chinese-History"
+                 style="width: 220px; height: 200px; margin-right: 30px; margin-bottom: 35px; float: left;">
+            </div>
+            <div id="Chinese-Politics"
+                 style="width: 220px; height: 200px; margin-right: 30px; margin-bottom: 35px; float: left;">
+            </div>
+            <div id="Chinese-Geography" style="width: 220px; height: 200px; margin-bottom: 35px; float: left;">
+            </div>
+            <div id="Physics-Math" style="width: 220px; height: 200px; margin-right: 30px; float: left;">
+            </div>
+            <div id="Chemistry-Math" style="width: 220px; height: 200px; margin-right: 30px; float: left;">
+            </div>
+            <div id="Biology-Chemistry" style="width: 220px; height: 200px; margin-right: 30px; float: left;">
+            </div>
+            <div id="Physics-Chemistry" style="width: 220px; height: 200px; float: left;">
+            </div>
+        </div>
+        <div style="text-align: center;"><img th:src="@{/public/img/下箭头.png}" height="40px"></div>
+        <div id="relatedChartPartAnalyse">
+            <div id="subjectRelationThermodynamicChart" style="width: 500px; height: 500px; float: left;">
+            </div>
+            <div style="float: left; position: relative; height: 500px; width: 40px;">
+                <img th:src="@{/public/img/右箭头.png}" width="40px" height="40px"
+                     style="position: absolute; top: 50%; margin-top: -20px;">
+            </div>
+            <div id="subjectRelationAnalyseText">
+                    <span style="display: table-cell; vertical-align:middle;">
+                        <strong>结论：</strong>
+                        观察对部分具有代表性的学科间关系分析以及学科间的关系系数。
+                        利用学科间的关系系数，一方面为新高考3+3模式提供选择依据，充分发挥学生的优势。
+                        另一方面为校领导成绩提高上有更多角度地策略，例如，某生的物理成绩不理想，但数学成绩较好，
+                        由于物理与数学之间有较强的联系，因此教师对该生进行针对性的帮助，该生的物理成绩将有很大的进步空间
+                    </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<!-- 访问API数据 -->
+<script th:src="@{/public/js/IntelliSchoolAPI-JsonData.js}"></script>
+<!-- 引入echarts支持 -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+<!-- 本页JS文件 -->
+<script th:src="@{/intelli analyse/js/SubjectRelationJs.js}"></script>
+<script th:src="@{/intelli analyse/js/ThermodynamicChartJs.js}"></script>
+<script th:src="@{/public/js/CustomLoading.js}"></script>
+<script>
+    $(document).ready(function () {
+        initScatterChart()
+        drawThermodynamicChart()
+    })
+</script>
+
+</html>

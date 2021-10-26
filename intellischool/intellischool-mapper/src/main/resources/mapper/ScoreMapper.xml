@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dajiangsai.mapper.ScoreMapper">
+  <resultMap id="BaseResultMap" type="com.dajiangsai.pojo.Score">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <constructor>
+      <idArg column="exam_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <idArg column="stu_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <idArg column="exam_subject" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="exam_score" javaType="java.lang.Double" jdbcType="DOUBLE" />
+    </constructor>
+  </resultMap>
+
+  <select id="queryOneTestOneClassTotalScore" resultType="java.lang.Double">
+    -- 查询某次考试某班各科的总分，科目分别为1-9依次排列，第一个元素应当为语文
+    SELECT
+      SUM(exam_score) classTotalScore
+    FROM
+      score JOIN student ON (score.stu_id = student.stu_id)
+    WHERE
+      exam_id = #{examId}
+      AND class_id = #{classId}
+    GROUP BY
+      exam_id, class_id, exam_subject
+    ORDER BY
+      exam_subject;
+  </select>
+
+  <select id="queryAllExamByStudentId" resultType="com.dajiangsai.pojo.vo.ExamIdNameVO">
+    SELECT DISTINCT
+      score.exam_id as examId, exam.exam_name as examName
+    FROM
+      score, exam
+    WHERE
+      score.stu_id = #{studentId}
+      AND score.exam_id = exam.exam_id;
+  </select>
+</mapper>

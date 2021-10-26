@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>IntelliSchool-消费信息</title>
+    <meta name="description" content="IntelliSchool项目">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" th:href="@{/public/img/IntelliSchool Logo.png}" />
+
+    <!-- 网页基本CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/BasicWebsiteSettings.css}">
+
+    <!-- 导航栏CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/NavigationBar.css}">
+
+    <!-- 主体基本CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/MainFrame.css}">
+
+    <!-- 默认分布CSS样式 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/DefaultDistributionTemplate.css}">
+
+    <style type="text/css">
+        .pt {
+            margin-top: 2%;
+            height: 90%;
+            width: 100%;
+        }
+
+        #m3 {
+            height: 400px;
+            width: 100%;
+        }
+
+        .m3-x {
+            width: 50%;
+            height: 100%;
+            float: left;
+        }
+
+        .m3-y {
+            height: 50%;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <div id="bar">
+        <div id="logo">IntelliSchool<img th:src="@{/public/img/IntelliSchool Logo.png}" height="30px" style="margin: 10px; float:left;"></div>
+        <div id="linkBar">
+            <ul>
+                <li><a href="/basicInfo">基本数据</a></li>
+                <li><a href="/teacherManage">教师管理</a></li>
+                <li><a href="/scoreAnalyse">成绩分析</a></li>
+                <li class="linkBarSelected"><a href="javascript:;">消费信息</a></li>
+                <li><a href="/classInfo">班级信息</a></li>
+                <li><a href="/studentInfo">学生信息</a></li>
+                <li><a href="/intelliAnalyse">Intelli分析</a></li>
+                <li><a href="/intelliScore">Intelli预测</a></li>
+                <li><a href="/intelliConsume">Intelli消费</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="main">
+        <div class="generalDistributionBox" style="width: 100%; height: 400px;">
+            <div class="generalDistributionTitleBox">-- 消费趋势 --</div>
+            <div id="m1" class="pt"></div>
+        </div>
+        <div class="generalDistributionBox" style="width: 100%; height: 400px;">
+            <div class="generalDistributionTitleBox">-- 消费对比 --</div>
+            <div id="m3">
+                <div id="m3-1" class="m3-x">
+                    <div id="m3-1-1" class="m3-y"></div>
+                    <div id="m3-1-2" class="m3-y"></div>
+                </div>
+                <div id="m3-2" class="m3-x">
+                    <div id="m3-2-1" class="m3-y"></div>
+                    <div id="m3-2-2" class="m3-y"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+<script th:src="@{/consume info/js/ConsumeInfoJs.js}"></script>
+<script>
+    $(document).ready(function () {
+        initConsumeInfo()
+    })
+</script>
+
+</html>
